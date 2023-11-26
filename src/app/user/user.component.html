@@ -1,0 +1,72 @@
+<button type="button" class="btn btn-primary" (click)="openForm()" >Add Data</button>
+
+<form *ngIf = "showForm && !isEdit" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control email" id="email" formControlName="email" aria-describedby="emailHelp" placeholder="Enter email">
+     
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control password" id="password" formControlName="password"  placeholder="Password">
+    </div>
+    
+    <div class="form-group">
+      <label for="exampleInputPassword1" class="padding">Gender : </label>
+    <label class="padding">
+      <input type="radio" value="Male" formControlName="gender" checked>
+        <span>male</span>
+    </label>
+    <label>
+      <input type="radio" value="Female"  formControlName="gender">
+        <span>female</span>
+    </label>
+    </div>
+
+    <label for="cars" class="course">Course:</label>
+
+  <div class="form-group course">
+  <select id="cars" formControlName="course">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="vw">VW</option>
+    <option value="audi" selected>Audi</option>
+  </select>
+  </div>
+
+ 
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <table class="table table-bordered table-striped"> <!-- Added Bootstrap styling classes -->
+    <thead>
+      <tr>
+        
+        <th>Email</th>
+        <th>Password</th>
+        <th>Gender</th>
+        <th>Course</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr *ngFor="let data of submittedData; let i = index" [attr.data-index]="i">
+       
+        <td>{{ data.email }}</td>
+        <td>{{ data.password }}</td>
+        <td>{{ data.gender }}</td>
+        <td>{{ data.course }}</td>
+        <td>
+          <button type="button" class="btn btn-default btn-sm" (click)="onEdit(i)">
+           Edit
+         </button> |
+         <button type="button" class="btn btn-default btn-sm" (click)="onDelete(i)" >
+            Delete
+         </button>       
+        </td>
+      </tr>
+    </tbody>
+    </table>
+
