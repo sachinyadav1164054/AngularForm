@@ -1,6 +1,8 @@
 <button type="button" class="btn btn-primary" (click)="openForm()" >Add Data</button>
 
-<form *ngIf = "showForm && !isEdit" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form *ngIf="showForm && (!isEdit || (isEdit && submittedData[selectedEditIndex]))" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+<!-- <form *ngIf = "showForm && !isEdit" [formGroup]="userForm" (ngSubmit)="onSubmit()"> -->
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
       <input type="email" class="form-control email" id="email" formControlName="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -35,38 +37,32 @@
   </div>
 
  
-    
-    <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">{{ isEdit ? 'Update' : 'Submit' }}</button>
+
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
   </form>
 
-  <table class="table table-bordered table-striped"> <!-- Added Bootstrap styling classes -->
+  <table class="table table-bordered table-striped">
     <thead>
-      <tr>
-        
-        <th>Email</th>
-        <th>Password</th>
-        <th>Gender</th>
-        <th>Course</th>
-        <th>Action</th>
-      </tr>
+        <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Gender</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
     </thead>
-    
-    <tbody>
-      <tr *ngFor="let data of submittedData; let i = index" [attr.data-index]="i">
-       
-        <td>{{ data.email }}</td>
-        <td>{{ data.password }}</td>
-        <td>{{ data.gender }}</td>
-        <td>{{ data.course }}</td>
-        <td>
-          <button type="button" class="btn btn-default btn-sm" (click)="onEdit(i)">
-           Edit
-         </button> |
-         <button type="button" class="btn btn-default btn-sm" (click)="onDelete(i)" >
-            Delete
-         </button>       
-        </td>
-      </tr>
-    </tbody>
-    </table>
 
+    <tbody>
+        <tr *ngFor="let data of submittedData; let i = index" [attr.data-index]="i">
+            <td>{{ data.email }}</td>
+            <td>{{ data.password }}</td>
+            <td>{{ data.gender }}</td>
+            <td>{{ data.course }}</td>
+            <td>
+                <button type="button" class="btn btn-default btn-sm" (click)="onEdit(i)">Edit</button> |
+                <button type="button" class="btn btn-default btn-sm" (click)="onDelete(i)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
